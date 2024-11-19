@@ -1,0 +1,18 @@
+
+param : Foods : FoodsCost :=
+p1 0.25
+p2 0.10
+p3 0.08
+;
+
+param : Nutrients : NutrientsMin NutrientsMax :=
+Calc	10.0	.
+Iron	12.0	.
+Prot	15.0	.
+Fat		.		7.5
+;
+
+param FoodsNutrients : Calc Iron Prot Fat :=
+p1 0.7 0.9 0.8 0.5
+p2 0.8 0.8 1.5 0.6
+p3 0.0 0.8 0.9 0.4;

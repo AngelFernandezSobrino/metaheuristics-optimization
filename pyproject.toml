@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "metaheuristics-optimization"
+version = "0.1.0"
+description = ""
+authors = ["Ángel Fernández Sobrino <fernandezsobrinoangel@gnail.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "3.12.3"
+pyomo = {extras = ["optional"], version = "^6.8.1"}
