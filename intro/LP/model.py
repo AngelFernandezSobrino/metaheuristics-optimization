@@ -4,27 +4,27 @@
 # Se ha implementado con AbstractModel, siguiendo la linea del ejemplo, pero en el Google Groups y en diversas publicaciones se puede ver como el uso de concretemodels es mas recomendado.
 # En este caso se ha evitaro usar el import del modulo completo al namespace del script, ya que se considera un mala practica. Se ha utilizado el alias pyo, como aconseja la documentacion.
 
-import pyomo.environ as pyo
+import pyomo.environ as pyoenv
 
-model = pyo.AbstractModel()
+model = pyoenv.AbstractModel()
 
 # Food
-model.Foods = pyo.Set()
+model.Foods = pyoenv.Set()
 # Nutrients
-model.Nutrients = pyo.Set()
+model.Nutrients = pyoenv.Set()
 
 # Cost of each food
-model.FoodsCost = pyo.Param(model.Foods, within=pyo.PositiveReals)
+model.FoodsCost = pyoenv.Param(model.Foods, within=pyoenv.PositiveReals)
 # Nutrients of each food
-model.FoodsNutrients = pyo.Param(model.Foods, model.Nutrients, within=pyo.NonNegativeReals)
+model.FoodsNutrients = pyoenv.Param(model.Foods, model.Nutrients, within=pyoenv.NonNegativeReals)
 
 # Nutrients boundary conditions
-model.NutrientsMin = pyo.Param(model.Nutrients, within=pyo.NonNegativeReals, default=0.0)
-model.NutrientsMax = pyo.Param(model.Nutrients, within=pyo.NonNegativeReals, default=float('inf'))
+model.NutrientsMin = pyoenv.Param(model.Nutrients, within=pyoenv.NonNegativeReals, default=0.0)
+model.NutrientsMax = pyoenv.Param(model.Nutrients, within=pyoenv.NonNegativeReals, default=float('inf'))
 
 # Variable to optimze
 # Amout of each food
-model.FoodsAmmount = pyo.Var(model.Foods, within=pyo.NonNegativeReals)
+model.FoodsAmmount = pyoenv.Var(model.Foods, within=pyoenv.NonNegativeReals)
 
 # Cost function objetive
 # Function to minimize
@@ -39,10 +39,10 @@ def nutrients_boundary_check(model, nutrient):
 
 
 # Assigns the cost function to the model as the objetive
-model.CostObjetive = pyo.Objective(rule = cost_function, sense=pyo.minimize)
+model.CostObjetive = pyoenv.Objective(rule = cost_function, sense=pyoenv.minimize)
 
 # Assigns the boundary constraints calculation to the model
-model.NutrientsConstraints = pyo.Constraint(model.Nutrients, rule=nutrients_boundary_check)
+model.NutrientsConstraints = pyoenv.Constraint(model.Nutrients, rule=nutrients_boundary_check)
 
 data = {None: {
     'Foods': ['p1', 'p2' , 'p3'],
@@ -56,7 +56,7 @@ data = {None: {
 }}
 
 instance = model.create_instance('./intro/LP/model.dat')
-solver = pyo.SolverFactory('glpk')
+solver = pyoenv.SolverFactory('glpk')
 solver.solve(instance, tee=True)
 
 instance.pprint()
